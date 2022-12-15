@@ -1,16 +1,17 @@
 package com.ltp.gradesubmission;
 
-import com.ltp.gradesubmission.entity.Course;
-import com.ltp.gradesubmission.entity.Student;
-import com.ltp.gradesubmission.repository.CourseRepository;
-import com.ltp.gradesubmission.repository.GradeRepository;
-import com.ltp.gradesubmission.repository.StudentRepository;
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.time.LocalDate;
+import com.ltp.gradesubmission.entity.Course;
+import com.ltp.gradesubmission.entity.Student;
+import com.ltp.gradesubmission.repository.CourseRepository;
+import com.ltp.gradesubmission.repository.GradeRepository;
+import com.ltp.gradesubmission.repository.StudentRepository;
 
 @SpringBootApplication
 public class GradeSubmissionApplication implements CommandLineRunner {
@@ -23,6 +24,7 @@ public class GradeSubmissionApplication implements CommandLineRunner {
 
 	@Autowired
 	CourseRepository courseRepository;
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(GradeSubmissionApplication.class, args);
@@ -37,6 +39,10 @@ public class GradeSubmissionApplication implements CommandLineRunner {
 				new Student("Neville Longbottom", LocalDate.parse(("1980-07-30")))
 		};
 
+		for (int i = 0; i < students.length; i++) {
+			studentRepository.save(students[i]);
+		}
+
 		Course[] courses = new Course[] {
 				new Course("Charms", "CH104", "In this class, you will learn spells concerned with giving an object new and unexpected properties."),
 				new Course("Defence Against the Dark Arts", "DADA", "In this class, you will learn defensive techniques against the dark arts."),
@@ -46,13 +52,10 @@ public class GradeSubmissionApplication implements CommandLineRunner {
 				new Course("Transfiguration", "TR442", "In this class, you will learn the art of changing the form or appearance of an object.")
 		};
 
-		for (int i = 0; i < students.length; i++){
-			studentRepository.save(students[i]);
-		}
-
-		for (int i = 0; i < courses.length; i++){
+		for (int i = 0; i < courses.length; i++) {
 			courseRepository.save(courses[i]);
 		}
 
 	}
+
 }
